@@ -1,8 +1,7 @@
 import requests
-import sys
 from bs4 import BeautifulSoup
 
-def scrape(url):
+def scrape(url,file):
 
     r = requests.get(url)
     soup= BeautifulSoup(r.content,"html.parser")
@@ -15,5 +14,7 @@ def scrape(url):
         print("Errore: nomi e prezzi di lunghezza diversa")
         return -2
     for i in range(len(name_tags)):
-        print(name_tags[i].text.strip(),price_tags[i].text.strip())
+        file.write(name_tags[i].text.strip()+ " " + price_tags[i].text.strip()+"\n")
+        #print(name_tags[i].text.strip(),price_tags[i].text.strip())
+
     return len(name_tags)
